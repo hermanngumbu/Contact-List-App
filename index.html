@@ -18,8 +18,8 @@
       <div class="title2"><h2>Formulaire de contact</h2></div> 
       <form id="form">
         <div id="msg"></div>
-        <label for="nom">Prénom</label>
-        <input type="text" id="prenom" name="prenom">
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" name="prenom" required>
        
     
         <label for="nom">Nom</label>
@@ -27,7 +27,7 @@
         
 
         <label for="telephone">Télephone</label> <br>
-        <input type="tel" id="tel" name="tel"> 
+        <input type="tel" id="tel" name="tel" required> 
         
         
         <label for="email">Email</label> 
@@ -53,49 +53,28 @@
           <input type="file" hidden>
         </div>
 
-        <button type="submit" class="button button1" id="create">Créer</button>
+        <button  type="submit" class="button button1" id="btnSubmit">Créer</button>
         <button type="reset" class="button button2">Rénit</button>
     
       </form>
     </div>
-    <div class="list">
+
+  <div class="list">
       <div class="list1">
         <h2>Liste des contact</h2>
       </div> 
-      <div id="posts">
-        <div id="deco">
-          <div class="img"> 
-            <img src="/img_avatar.png" alt="herman">
-          </div> 
-          <div class="separate">
-            <div class="para">
-              <p>
-               <span class="prenom">Prénom</span> 
-               <span class="nom">Nom</span> 
-               <span class="groupe">Groupe</span> 
-              </p>
-              <p>
-                <span class="tel">Télephone</span> 
-                <span class="email">Email</span> 
-              </p>
-              <p class="bio">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quia et perspiciatis dolorum excepturi.</p>
-            </div> 
 
-            <div class="icon">
-              <span class="options">
-                <i onClick="editPost(this)" class="fas fa-edit fa-xs"></i>
-                <i onClick="deletePost(this)" class="fas fa-trash-alt fa-xs"></i>
-              </span>
-            </div>
-          </div>
-          
-          
-        </div>
+      <div id="display">
+        
       </div>
-      
-    </div>
-  </div>
 
+  </div>
+     
+      
+    
+
+  
+  
 
 
   <script src="app.js"></script>

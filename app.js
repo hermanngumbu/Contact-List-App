@@ -1,131 +1,9 @@
-//  #1
-// HERE VALIDATION AND GETTING DATA FONCTIONALITY 
 
-let form = document.getElementById('form');
-let prenom = document.getElementById("prenom");
-let nom = document.getElementById("nom");
-let tel = document.getElementById('tel');
-let email = document.getElementById("email");
-let groupe = document.getElementById('groupe');
-let bio = document.getElementById('bio');
-let btn = document.getElementById('create');
-
-let contacts = []
-
-
-form.addEventListener('submit', (e) =>{
-    e.preventDefault();
-    let bcreate = document.getElementById("create").textContent
-    if(bcreate === "Créer"){
-      formValidation();
-      console.log(bcreate); 
-    }
-    else{
-
-      console.log(bcreate);
-    }
-     
-    
-});
-
-// check tel unique
-let checkTelUnique = (tel) => {
-  return contacts.find(c => c.tel === tel)
-}
-
-let formValidation = () => {
-  if (checkTelUnique(tel.value)) {
-    msg.innerHTML = 'Tel deja utilise'
-    return
-  }
-
-    if (prenom.value === "" || nom.value === "" || tel.value === "") {
-      msg.innerHTML = "Le champ nom, prenom et téléphone ne peuvent pas etre vide.";
-    } else {
-      msg.innerHTML = "";
-      acceptData();
-    } 
-  };
-
-  let data = {};
-
-  let acceptData = () => {
-    data["prenom"] = prenom.value;
-    data["nom"] = nom.value;
-    data["tel"] = tel.value;
-    data["email"] = email.value;
-    data["groupe"] = groupe.value;
-    data["bio"] = bio.value;
-    createPost();
-  };
-
-  function displayContacts () {
-    let contentContacts = ''
-
-    fo
-  }
-
-  let createPost = (data) => {
-    contacts.push(data)
-
-    posts.innerHTML += `
-    <div class="separate">
-    <div class="para">
-      <p>
-       <span id="editprenom">${data.prenom}</span> 
-       <span id="editnom">${data.nom}</span> 
-       <span id="editgroupe">${data.groupe}</span> 
-      </p>
-      <p>
-         <span id="edittel">${data.tel}</span> 
-        <span id="editemail">${data.email}</span> 
-        </p>
-      <p id="editbio">${data.bio}</p>
-    </div> 
-
-    <div class="icon">
-      <span class="options">
-        <i onClick="editPost(this)" class="fas fa-edit fa-xs" id=""></i>
-        <i onClick="deletePost(this)" class="fas fa-trash-alt fa-xs"></i>
-      </span>
-    </div>
-  </div>
-    `;
-  form.reset();
-};
-
-let deletePost = (e) => {
-    e.parentElement.parentElement.parentElement.remove();
-  };
-  
-  let editPost = (e) => {
-
-    document.getElementById("prenom").value = document.getElementById("editprenom").innerHTML;
-    document.getElementById("nom").value = document.getElementById("editnom").innerHTML;
-    document.getElementById("tel").value = document.getElementById("edittel").innerHTML;
-    document.getElementById("email").value = document.getElementById("editemail").innerHTML;
-    document.getElementById("groupe").value = document.getElementById("editgroupe").innerHTML;
-    document.getElementById("bio").value = document.getElementById("editbio").innerHTML;
-
-    let b = btn.textContent="Modifier";
-    console.log(b);
-   
-  };
-
-  
-
-
-
-  //  #2
-// HERE DROP AND DRAG FONCTIONALITY 
-
-
-  //selecting all required elements
 const dropArea = document.querySelector(".drag-area"),
 dragText = dropArea.querySelector("header"),
 button = dropArea.querySelector("button"),
 input = dropArea.querySelector("input");
-let file; //this is a global variable and we'll use it inside multiple functions
+let file; 
 
 button.onclick = ()=>{
   input.click(); //if user click on the button then the input also clicked
@@ -143,13 +21,13 @@ input.addEventListener("change", function(){
 dropArea.addEventListener("dragover", (event)=>{
   event.preventDefault(); //preventing from default behaviour
   dropArea.classList.add("active");
-  dragText.textContent = "Release to Upload File";
+  // dragText.textContent = "Release to Upload File";
 });
 
 //If user leave dragged File from DropArea
 dropArea.addEventListener("dragleave", ()=>{
   dropArea.classList.remove("active");
-  dragText.textContent = "Drag & Drop to Upload File";
+  // dragText.textContent = "Drag & Drop to Upload File";
 });
 
 //If user drop File on DropArea
@@ -167,7 +45,7 @@ function showFile(){
     let fileReader = new FileReader(); //creating new FileReader object
     fileReader.onload = ()=>{
       let fileURL = fileReader.result; //passing user file source in fileURL variable
-      let imgTag = `<img src="${fileURL}" alt="">`; //creating an img tag and passing user selected file source inside src attribute
+      let imgTag = `<img src="${fileURL}" alt="" id="imgDrag">`; //creating an img tag and passing user selected file source inside src attribute
       dropArea.innerHTML = imgTag; //adding that created img tag inside dropArea container
     }
     fileReader.readAsDataURL(file);
@@ -177,3 +55,97 @@ function showFile(){
     dragText.textContent = "Drag & Drop to Upload File";
   }
 }
+
+
+
+
+
+const form = document.getElementById('form');
+const btnCreate = document.getElementById('btnSubmit');
+
+let updateId = "";
+let verify = false;
+
+btnCreate.addEventListener('click', (e) =>{
+     e.preventDefault();
+     const createId = 'id' + Date.now().toString();
+
+     const prenom = document.getElementById('prenom').value;
+     const nom = document.getElementById('nom').value;
+     const tel = document.getElementById('tel').value;
+     const email = document.getElementById('email').value;
+     const groupe = document.getElementById('groupe').value;
+     const bio = document.getElementById('bio').value;
+     const profil = document.getElementById('imgDrag').src;
+
+    if (verify) {
+    document.querySelector(`#${updateId} .para p .prenom`).innerText = prenom; 
+    document.querySelector(`#${updateId} .para p .nom`).innerText = nom; 
+    document.querySelector(`#${updateId} .para p .groupe`).innerText = groupe; 
+    document.querySelector(`#${updateId} .para p .tel`).innerText = tel;
+    document.querySelector(`#${updateId} .para p .email`).innerText = email;  
+    console.log(bio);
+    document.querySelector(`#${updateId} .para .bio`).innerText = bio; 
+    document.querySelector(`#${updateId} .avatar .imgDrag`).src = profil; 
+    } else {
+      const displayShow = `
+      <div class="posts" id='${createId}'>
+            
+      <div class="avatar">
+        <img src="${profil}" alt="" class="imgDrag">
+      </div>
+      <div class="para">
+        <p>
+          <span class="prenom">${prenom}</span> 
+          <span class="nom">${nom}</span>
+          <span class="groupe">${groupe}</span>
+        </p>
+        <p>
+          <span class="tel">${tel}</span>
+          <span class="email">${email}</span>
+        </p>
+        <p class="bio">${bio}</p>
+    </div>
+  
+  <div class="icon">
+    <span class="options">
+      <i onClick="editPost(this, '${createId}')" class="fas fa-edit fa-xs"></i>
+      <i onClick="deletePost(this)" class="fas fa-trash-alt fa-xs"></i>
+    </span>
+  </div>
+  </div>
+`;
+
+    const affiche =  document.getElementById('display');
+    affiche.innerHTML+=displayShow;
+     }
+
+     document.getElementById('btnSubmit').textContent='Créer';
+     verify = false;
+     updateId = "";
+    
+     form.reset();
+     
+})
+
+const deletePost = (e) => {
+  e.parentElement.parentElement.parentElement.remove();
+};
+
+  const editPost = (e, id) => {
+    document.getElementById('prenom').value = e.parentElement.parentElement.previousElementSibling.querySelector('.prenom').innerHTML;
+    document.getElementById('nom').value = e.parentElement.parentElement.previousElementSibling.querySelector('.nom').innerHTML;
+    document.getElementById('groupe').value = e.parentElement.parentElement.previousElementSibling.querySelector('.groupe').innerHTML;
+    document.getElementById('email').value = e.parentElement.parentElement.previousElementSibling.querySelector('.email').innerHTML;
+    document.getElementById('bio').value = e.parentElement.parentElement.previousElementSibling.querySelector('.bio').innerHTML;
+    document.getElementById('tel').value = e.parentElement.parentElement.previousElementSibling.querySelector('.tel').innerHTML;
+    document.getElementById('imgDrag').src = e.parentElement.parentElement.parentElement.querySelector('.imgDrag').src;
+
+    updateId = id; 
+    verify = true;
+
+   document.getElementById('btnSubmit').textContent='Modifier';
+    
+   
+  };
+
